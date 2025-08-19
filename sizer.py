@@ -59,9 +59,10 @@ def automate_nutanix_login(email, password):
         wait.until(EC.url_contains("my.nutanix.com/page/accounts"))
         print("Successfully logged into the dashboard! 🎉")
         
-        # Now you can add the rest of your automation logic here...
-        # For example: navigating to the sizer tool, creating a scenario, and downloading the BOM.
-     # --- Print the Page Source ---
+        launch_button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[aria-label='Launch Nutanix Sizer']")))
+        launch_button.click()
+        print("launch button clicked")
+
         print("\n--- HTML Source of the Dashboard Page ---")
         page_source = driver.page_source
         print(page_source[:2000]) # Print the first 2000 characters for brevity
