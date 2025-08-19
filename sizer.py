@@ -61,7 +61,17 @@ def automate_nutanix_login(email, password):
         
         launch_button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[aria-label='Launch Nutanix Sizer']")))
         launch_button.click()
-        print("launch button clicked")
+        print("launch nutanix sizer button clicked")
+        
+        try:
+            print("Waiting for the Nutanix Sizer tool to load...")
+            # Replace 'scenario_title' with a unique locator on the new page
+            scenario_header = wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(text(), 'New Scenario')]")))
+            print("Nutanix Sizer page loaded successfully.")
+
+
+        except Exception as e:
+            print(f"Failed to load the Nutanix Sizer page: {e}")
 
         print("\n--- HTML Source of the Dashboard Page ---")
         page_source = driver.page_source
