@@ -51,7 +51,7 @@ def automate_nutanix_login(email, password):
         # Based on a common login flow, it's often the same 'Next' button or a new one.
         # Let's assume it's the same ID 'idp_next' for the example.
         print("Finding and clicking the 'Sign in' button...")
-        signin_button = wait.until(EC.element_to_be_clickable((By.ID, "idp_next")))
+        signin_button = wait.until(EC.element_to_be_clickable((By.ID, "login-btn")))
         signin_button.click()
         print("'Sign in' button clicked.")
 
