@@ -1,0 +1,80 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+def automate_nutanix_login(email, password):
+    """
+    Automates the two-step login process for the Nutanix portal.
+    
+    Args:
+        email (str): The user's email address.
+        password (str): The user's password.
+    """
+    # Configure Chrome to run in headless mode for EC2
+    options = Options()
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+
+    # Initialize the WebDriver
+    print("Starting the browser...")
+    driver = webdriver.Chrome(options=options)
+    wait = WebDriverWait(driver, 20) # Increased wait time for stability
+
+    # Navigate to the Nutanix login URL
+    login_url = "https://my.nutanix.com/page/login?client_id=J7AXR8KC83qQADuQh1orRWyn8uga&commonAuthCallerPath=%2Foauth2%2Fauthorize&forceAuth=false&passiveAuth=false&redirect_uri=https%3A%2F%2Fmy.nutanix.com%2Fapi%2Fv1%2Fauth%2Fwso2%2Fcallback&response_type=code&scope=openid+internal_login&state=successRedirect%3Dhttps%253A%252F%252Fmy.nutanix.com%252Fpage%252Faccounts&tenantDomain=carbon.super&sessionDataKey=e8981ee8-5ec0-4608-a0b8-22526a69a5ff&relyingParty=J7AXR8KC83qQADuQh1orRWyn8uga&type=oidc&sp=gatekeeper&isSaaSApp=false"
+    driver.get(login_url)
+    print(f"Navigated to: {login_url}")
+
+    try:
+        # --- Page 1: Enter Email ---
+        print("Finding email input field...")
+        email_field = wait.until(EC.presence_of_element_located((By.ID, "i0116")))
+        email_field.send_keys(email)
+        print("Email entered.")
+
+        print("Finding and clicking the 'Next' button...")
+        next_button = wait.until(EC.element_to_be_clickable((By.ID, "idp_next")))
+        next_button.click()
+        print("'Next' button clicked.")
+
+        # --- Page 2: Enter Password ---
+        print("Finding password input field...")
+        # The password field's ID is 'password' based on your provided HTML snippet.
+        password_field = wait.until(EC.presence_of_element_located((By.ID, "password")))
+        password_field.send_keys(password)
+        print("Password entered.")
+        
+        # The 'Sign in' button on the second page often reuses an ID or has a new one.
+        # Based on a common login flow, it's often the same 'Next' button or a new one.
+        # Let's assume it's the same ID 'idp_next' for the example.
+        print("Finding and clicking the 'Sign in' button...")
+        signin_button = wait.until(EC.element_to_be_clickable((By.ID, "idp_next")))
+        signin_button.click()
+        print("'Sign in' button clicked.")
+
+        # Confirm successful login by waiting for a new page URL
+        wait.until(EC.url_contains("my.nutanix.com/page/accounts"))
+        print("Successfully logged into the dashboard! 🎉")
+        
+        # Now you can add the rest of your automation logic here...
+        # For example: navigating to the sizer tool, creating a scenario, and downloading the BOM.
+
+    except Exception as e:
+        print(f"An error occurred during the login process: {e}")
+
+    finally:
+        # It's good practice to add a pause for observation before closing
+        # time.sleep(5)
+        print("Closing the browser...")
+        driver.quit()
+
+# --- Execution ---
+if __name__ == "__main__":
+    # **IMPORTANT**: Replace these with your actual credentials
+    your_email = "kanchana.subramani@tcs.com" 
+    your_password = "Avadi@2894"
+    
+    automate_nutanix_login(your_email, your_password)
