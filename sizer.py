@@ -31,12 +31,12 @@ def automate_nutanix_login(email, password):
     try:
         # --- Page 1: Enter Email ---
         print("Finding email input field...")
-        email_field = wait.until(EC.presence_of_element_located((By.ID, "i0116")))
+        email_field = wait.until(EC.presence_of_element_located((By.ID, "email")))
         email_field.send_keys(email)
         print("Email entered.")
 
         print("Finding and clicking the 'Next' button...")
-        next_button = wait.until(EC.element_to_be_clickable((By.ID, "idp_next")))
+        next_button = wait.until(EC.element_to_be_clickable((By.ID, "login-btn")))
         next_button.click()
         print("'Next' button clicked.")
 
