@@ -24,7 +24,7 @@ def automate_nutanix_login(email, password):
     wait = WebDriverWait(driver, 20) # Increased wait time for stability
 
     # Navigate to the Nutanix login URL
-    login_url = "https://my.nutanix.com/page/accounts"
+    login_url = "https://my.nutanix.com/page/login"
     driver.get(login_url)
     print(f"Navigated to: {login_url}")
 
