@@ -24,7 +24,7 @@ def automate_nutanix_login(email, password):
     wait = WebDriverWait(driver, 20) # Increased wait time for stability
 
     # Navigate to the Nutanix login URL
-    login_url = "https://my.nutanix.com/page/login?client_id=J7AXR8KC83qQADuQh1orRWyn8uga&commonAuthCallerPath=%2Foauth2%2Fauthorize&forceAuth=false&passiveAuth=false&redirect_uri=https%3A%2F%2Fmy.nutanix.com%2Fapi%2Fv1%2Fauth%2Fwso2%2Fcallback&response_type=code&scope=openid+internal_login&state=successRedirect%3Dhttps%253A%252F%252Fmy.nutanix.com%252Fpage%252Faccounts&tenantDomain=carbon.super&sessionDataKey=e8981ee8-5ec0-4608-a0b8-22526a69a5ff&relyingParty=J7AXR8KC83qQADuQh1orRWyn8uga&type=oidc&sp=gatekeeper&isSaaSApp=false"
+    login_url = "https://my.nutanix.com/page/accounts"
     driver.get(login_url)
     print(f"Navigated to: {login_url}")
 
