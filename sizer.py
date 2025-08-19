@@ -61,7 +61,11 @@ def automate_nutanix_login(email, password):
         
         # Now you can add the rest of your automation logic here...
         # For example: navigating to the sizer tool, creating a scenario, and downloading the BOM.
-
+     # --- Print the Page Source ---
+        print("\n--- HTML Source of the Dashboard Page ---")
+        page_source = driver.page_source
+        print(page_source[:2000]) # Print the first 2000 characters for brevity
+        print("\n--- End of HTML Source ---")
     except Exception as e:
         print(f"An error occurred during the login process: {e}")
 
